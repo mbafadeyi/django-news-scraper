@@ -126,9 +126,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 # STATIC_ROOT = BASE_DIR / "static_root"
-# STATICFILES_DIRS = BASE_DIR / "static_files"
+# STATICFILES_DIRS = [BASE_DIR / "static_files"]
 # MEDIA_URL = "/media/"
 # MEDIA_ROOT = BASE_DIR / "media"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -140,6 +141,6 @@ CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_BEAT_SCHEDULE = {
     "SendScheduledEmails": {
         "task": "core.tasks.send_scheduled_emails",
-        "schedule": 10,  # crontab(minute="*/30"),  # Every 30 mins
+        "schedule": crontab(minute="*/30"),  # Every 30 mins
     }
 }

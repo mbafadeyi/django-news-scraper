@@ -1,10 +1,8 @@
-from django.shortcuts import render
+from django.views import generic
 
-from core.tasks import send_mass_emails
+from .models import NewsItem
 
 
-def mass_email_view(request):
-    recipient = "foo.bar@email.com"
-    print("Received request")
-    send_mass_emails.delay(recipient)
-    return render(request, "index.html")
+class NewsItemListView(generic.ListView):
+    model = NewsItem
+    template_name = "news_item_list.html"
