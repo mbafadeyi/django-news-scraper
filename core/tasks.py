@@ -1,18 +1,10 @@
-import time
-
 from celery import shared_task
+
+from .scrapers import scrape
 
 
 @shared_task
-def send_mass_emails(recipient):
-    print(recipient)
-    print("Started to sleep")
-    time.sleep(5)
-    print("Woke up from sleep")
+def scrape_dev_to():
+    URL = "https://dev.to/search?q=django"
+    scrape(URL)
     return
-
-
-# @task
-# def send_scheduled_emails():
-#     # get all those email addresses
-#     pass

@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_BEAT_SCHEDULE = {
     "SendScheduledEmails": {
-        "task": "core.tasks.send_scheduled_emails",
-        "schedule": crontab(minute="*/30"),  # Every 30 mins
+        "task": "core.tasks.scrape_dev_to",
+        "schedule": 10,  # crontab(minute="*/30"),  # Every 30 mins
     }
 }
