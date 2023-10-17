@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Google Config Folder
+~/.config/google-chrome/
+
 # C extensions
 *.so
 
