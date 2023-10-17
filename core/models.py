@@ -11,3 +11,10 @@ class NewsItem(models.Model):
 
     def __str__(self):
         return self.link[0:50]
+
+
+class ScrapeRecord(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.timestamp}"

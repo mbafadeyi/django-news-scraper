@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from .models import NewsItem
+from .models import NewsItem, ScrapeRecord
 
 
 def scrape(URL):
@@ -80,6 +80,8 @@ def scrape(URL):
                     source="dev.to",
                     publish_date=new_item_date,
                 )
+
+        ScrapeRecord.objects.create()
 
     except:  # noqa
         pass

@@ -1,6 +1,12 @@
 from django.views import generic
 
-from .models import NewsItem
+from .models import NewsItem, ScrapeRecord
+
+
+class ScrapeRecordListView(generic.ListView):
+    template_name = "scrape_history.html"
+    paginate_by = 10
+    model = ScrapeRecord
 
 
 class NewsItemListView(generic.ListView):

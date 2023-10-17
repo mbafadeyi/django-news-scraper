@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import NewsItem
+from .models import NewsItem, ScrapeRecord
 
 
 class NewsItemAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ class NewsItemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(NewsItem, NewsItemAdmin)
+admin.site.register(ScrapeRecord)
