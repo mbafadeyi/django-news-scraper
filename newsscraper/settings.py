@@ -137,10 +137,50 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Celery
-CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 CELERY_BEAT_SCHEDULE = {
     "SendScheduledEmails": {
         "task": "core.tasks.scrape_dev_to",
-        "schedule": 10,  # crontab(minute="*/30"),  # Every 30 mins
+        "schedule": crontab(minute="*/2"),  # Every 2 mins
     }
 }
+
+if DEBUG is False:
+    ALLOWED_HOSTS = [env("HOST")]
+
+    SESSION_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_REDIRECT_EXEMPT = []
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    # AWS Settings
+
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+
+    # S3 Bucket Settings
+    STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    STATICFILES_STORAGE = "newsscraper.storage_backends.StaticStorage"
+
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USERNAME"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST"),
+            "PORT": env("DB_PORT"),
+        }
+    }
