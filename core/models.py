@@ -15,6 +15,8 @@ class NewsItem(models.Model):
 
 class ScrapeRecord(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
+    finish_time = models.DateTimeField(auto_now_add=True)
+    finished = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.timestamp}"

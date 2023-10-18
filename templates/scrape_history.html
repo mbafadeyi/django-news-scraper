@@ -15,8 +15,8 @@
             {% for item in object_list %}
             <tr>
                 <th scope="row"> {{ item.timestamp }} </th>
-                <td><a href="{{ item.link }}" target="_blank"> 123 </a></td>
-                <td> 123 </td>
+                <th> {{ item.finish_time }} </th>
+                <th> {{ item.finished }} </th>
             </tr>
         </tbody>
         {% endfor %}
@@ -41,7 +41,7 @@
     {% endif %}
 
 </div>
-    <form method="GET">
+    <form method="POST">
         {% csrf_token %}
             <button class="btn btn-primary" type="Submit" id="button-addon2">Scrape Dev.to</button>
         </div>
