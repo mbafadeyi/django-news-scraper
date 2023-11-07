@@ -1,6 +1,5 @@
 # django news scraper
- 
-# Job board
+
  A webscraper built with Python for collection of data from the internet.
 
 ## Introduction
